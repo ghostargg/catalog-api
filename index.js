@@ -9,15 +9,20 @@ app.get('/api/phones', (request, response) => {
   response.json(phones)
 })
 
-app.get('/api/phones/:id', (request, response) => {
-  const id = request.params.id;
-  const phone = phones.find(phone => phone.id === id);
-  if (phone) {
-    response.json(phone);
+app.get('/api/phones/:phoneId', (request, response) => {
+  const phoneId = request.params.phoneId;
+
+  const phonewith = require(`./phones/${phoneId}.json`)
+  if (phonewith) {
+    response.json(phonewith)
   } else {
     response.status(404).end();
   }
+  console.log(phonewith)
+
 })
+
+
 
 const PORT = process.env.PORT || 3001;
 
