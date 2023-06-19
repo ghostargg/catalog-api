@@ -14,9 +14,11 @@ app.get('/api/phones/:phoneId', (request, response) => {
 
   const phoneFilter = phoneId.split('-').slice(0,3).join('-')
   const phonesToGet = phones.filter(phone => phone.phoneId.includes(phoneFilter));
+
+  const detailed = phonesToGet.map(phone => require(`./phones/${phone.phoneId}`))
   
-  if (phonesToGet.length) {
-    response.json(phonesToGet)
+  if (detailed) {
+    response.json(detailed)
   } else {
     response.status(404).end();
   }
