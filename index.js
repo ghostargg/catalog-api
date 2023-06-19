@@ -10,16 +10,17 @@ app.get('/api/phones', (request, response) => {
 })
 
 app.get('/api/phones/:phoneId', (request, response) => {
-  const phoneId = request.params.phoneId;
+  const phoneId = request.params.phoneId
 
-  const phonewith = require(`./phones/${phoneId}.json`)
-  if (phonewith) {
-    response.json(phonewith)
+  const phoneFilter = phoneId.split('-').slice(0,3).join('-')
+  const phonesToGet = phones.filter(phone => phone.phoneId.includes(phoneFilter));
+  
+  if (phonesToGet.length) {
+    response.json(phonesToGet)
   } else {
     response.status(404).end();
   }
-  console.log(phonewith)
-
+  
 })
 
 
